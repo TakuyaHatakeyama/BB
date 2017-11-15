@@ -309,8 +309,8 @@ public class AppMain extends AppCompatActivity implements View.OnClickListener{
                 steps = se.values[0] - dust;
 
                 //歩数の表示
-                Typeface typeface = Typeface.createFromAsset(getAssets(), "font_file_name");
-                mStepCounterText.setTypeface(typeface);
+//                Typeface typeface = Typeface.createFromAsset(getAssets(), "font_file_name");
+//                mStepCounterText.setTypeface(typeface);
                 mStepCounterText.setText(String.format(Locale.US, "%d", (int)steps));
 
                 //状態の初期化（ストップを押している状態）
