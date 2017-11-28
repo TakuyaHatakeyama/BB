@@ -1,6 +1,8 @@
 package com.example.tenma.wolkapp2;
 
+import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +13,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.AudioManager;
+import android.media.Image;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.net.Uri;
@@ -27,20 +30,27 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 public class AppMain extends AppCompatActivity implements View.OnClickListener{
-
+    boolean nowMessageDisp;
     MediaPlayer bgm;
 
-    public void back3(View view) {
+    public void back(View view) {
+        //ボタンの音
+        soundPool.play(soundId, 1f, 1f, 0, 0, 1);    //音の大きさは0fから1fで調整できる
         //インテントの作成
         Intent intent = new Intent(this, AppTitle.class);
         //遷移先の画面を起動
         startActivity(intent);
+
+        finishAndRemoveTask();
     }
 
-    private ImageButton start,stop,reset;
+    private ImageButton start,stop;
 
     private TextView mStepCounterText;
     private SensorManager mSensorManager;
@@ -97,6 +107,24 @@ public class AppMain extends AppCompatActivity implements View.OnClickListener{
 
                 }
             }
+            if(action.equals("android.intent.action.DATE_CHANGED")) {
+                //stepsの値が0より大きい時
+                if(se.values[0] - pref.getFloat("beforedust", 0) > 0) {
+
+                    //日付の取得
+                    Calendar cal = Calendar.getInstance();
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+                    String strDate = sdf.format(cal.getTime());
+                    int intDate = Integer.parseInt(strDate);
+
+                    //SQLに日付(yyyymmdd)と歩数を入れる
+                    ContentValues cv = new ContentValues();
+                    cv.put("days", intDate);
+                    cv.put("steps", se.values[0] - pref.getFloat("beforedust", 0));
+
+                }
+
+            }
         }
     }
 
@@ -107,7 +135,7 @@ public class AppMain extends AppCompatActivity implements View.OnClickListener{
 
         ImageView imageView = (ImageView) findViewById(R.id.gifView);
         GlideDrawableImageViewTarget target = new GlideDrawableImageViewTarget(imageView);
-        Glide.with(this).load(R.raw.gif2).into(target);
+        Glide.with(this).load(R.raw.main_stop).into(target);
 
         //リソースファイルから再生
         bgm = MediaPlayer.create(this, R.raw.main_b);
@@ -140,6 +168,7 @@ public class AppMain extends AppCompatActivity implements View.OnClickListener{
             editor.putBoolean("bootcompleted", false);
             editor.apply();
         }
+        nowMessageDisp = false;
     }
 
     protected void onResume() {
@@ -166,6 +195,7 @@ public class AppMain extends AppCompatActivity implements View.OnClickListener{
         soundPool = new SoundPool(50, AudioManager.STREAM_MUSIC, 0);
         soundId = soundPool.load(getApplicationContext(), R.raw.click2, 1);
 
+        findViewById(R.id.imageView8).setVisibility(View.INVISIBLE);
     }
 
     boolean onstopflag = false;
@@ -263,7 +293,7 @@ public class AppMain extends AppCompatActivity implements View.OnClickListener{
 
 
 
-    private final SensorEventListener mStepCountListener = new SensorEventListener() {
+    private SensorEventListener mStepCountListener = new SensorEventListener() {
 
         //センサーから歩数を取得し、表示するメソッド
         @Override
@@ -327,6 +357,11 @@ public class AppMain extends AppCompatActivity implements View.OnClickListener{
                 //歩数表示を増加させる
                 //wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
                 steps = se.values[0] - dust;
+
+                //数字のフォント変えるところ
+
+
+
                 mStepCounterText.setText(String.format(Locale.US, "%d", (int)steps));
                 //wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
 
@@ -364,7 +399,10 @@ public class AppMain extends AppCompatActivity implements View.OnClickListener{
                     teststart = (ImageButton) findViewById(R.id.IBstart);
                     teststart.setImageResource(R.drawable.start2);
                     teststart = (ImageButton) findViewById(R.id.IBstop);
-                    teststart.setImageResource(R.drawable.stop);
+                    teststart.setImageResource(R.drawable.stop1);
+                    ImageView imageView = (ImageView) findViewById(R.id.gifView);
+                    GlideDrawableImageViewTarget target = new GlideDrawableImageViewTarget(imageView);
+                    Glide.with(this).load(R.raw.main_back3).into(target);
 
                     Log.v("testt", "-----スタートボタンが押されました-----");
                     Log.v("testt", "いらない歩数[dust(変化前)]" + dust);
@@ -397,9 +435,12 @@ public class AppMain extends AppCompatActivity implements View.OnClickListener{
 
                     //スタート・ストップ・リセットボタンの画像変更
                     teststart = (ImageButton) findViewById(R.id.IBstart);
-                    teststart.setImageResource(R.drawable.start);
+                    teststart.setImageResource(R.drawable.start1);
                     teststart = (ImageButton) findViewById(R.id.IBstop);
                     teststart.setImageResource(R.drawable.stop2);
+                    ImageView imageView = (ImageView) findViewById(R.id.gifView);
+                    GlideDrawableImageViewTarget target = new GlideDrawableImageViewTarget(imageView);
+                    Glide.with(this).load(R.raw.main_stop).into(target);
 
                     //歩数計算
                     stopfirst = se.values[0];
@@ -411,6 +452,17 @@ public class AppMain extends AppCompatActivity implements View.OnClickListener{
                 }
                 break;
 
+        }
+    }
+    public void serif(View view){
+        // セリフが出てなければ表示する
+        if( !nowMessageDisp ){
+            findViewById(R.id.imageView8).setVisibility(View.VISIBLE);
+            nowMessageDisp = true;
+        }
+        else{
+            findViewById(R.id.imageView8).setVisibility(View.INVISIBLE);
+            nowMessageDisp = false;
         }
     }
 }

@@ -12,8 +12,8 @@
         android:id="@+id/imageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/back3"
+        app:srcCompat="@drawable/back"
         android:background="@null"
         android:layout_gravity="left"
-        android:onClick="back3"/>
+        android:onClick="back"/>
 </LinearLayout>

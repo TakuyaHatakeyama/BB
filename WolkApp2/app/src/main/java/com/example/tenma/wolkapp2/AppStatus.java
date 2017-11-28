@@ -1,6 +1,8 @@
 package com.example.tenma.wolkapp2;
 
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,6 +17,8 @@ public class AppStatus extends ActivityAddToBGMandSE{
 
     private Spinner selectSpinner;
     private Spinner selectSpinner2;
+    private SoundPool soundPool;
+    private int soundId;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +47,14 @@ public class AppStatus extends ActivityAddToBGMandSE{
                 // スピナーでは使用しないようですが、ないといけないのでこのまま放置
             }
         });
+        // Spinnerオブジェクトを取得
+        Spinner spinner = (Spinner)findViewById(R.id.spinner);
+
+        // 選択されているアイテムのIndexを取得
+        int idx = spinner.getSelectedItemPosition();
+
+        // 選択されているアイテムを取得
+        String item = (String)spinner.getSelectedItem();
 
 
     }
@@ -53,6 +65,9 @@ public class AppStatus extends ActivityAddToBGMandSE{
         super.onResume();
 
         bgmStart();
+        // 予め音声データを読み込む
+        soundPool = new SoundPool(50, AudioManager.STREAM_MUSIC, 0);
+        soundId = soundPool.load(getApplicationContext(), R.raw.click2, 1);
     }
 
     @Override
@@ -62,7 +77,9 @@ public class AppStatus extends ActivityAddToBGMandSE{
         bgmPause();
     }
 
-    public void back3(View view) {
+    public void back(View view) {
+        //ボタンの音
+        soundPool.play(soundId, 1f, 1f, 0, 0, 1);    //音の大きさは0fから1fで調整できる
         //インテントの作成
         Intent intent = new Intent(this, AppTitle.class);
         //遷移先の画面を起動

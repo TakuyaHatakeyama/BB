@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.example.tenma.wolkapp2.AppTitle"
     android:background="#00ffff">
-
 
     <ImageView
         android:id="@+id/imageView"
@@ -30,7 +27,7 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:background="@null"
-            app:srcCompat="@drawable/hazimeru2"
+            app:srcCompat="@drawable/hajimeru"
             android:onClick="button1" />
         <ImageButton
             android:id="@+id/imageButton2"
@@ -39,7 +36,7 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:background="@null"
-            app:srcCompat="@drawable/log2"
+            app:srcCompat="@drawable/kiroku"
             android:onClick="button2"/>
         <ImageButton
             android:id="@+id/imageButton3"
@@ -48,10 +45,9 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:background="@null"
-            app:srcCompat="@drawable/status2"
+            app:srcCompat="@drawable/settei"
             android:onClick="button3"/>
 
     </LinearLayout>
-
 
 </LinearLayout>
