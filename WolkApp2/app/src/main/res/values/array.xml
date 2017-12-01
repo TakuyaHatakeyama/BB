@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="prefecture">
+        <item>@drawable/font_0</item>
+        <item>@drawable/font_1</item>
+        <item>@drawable/font_2</item>
+        <item>@drawable/font_3</item>
+        <item>@drawable/font_4</item>
+        <item>@drawable/font_5</item>
+        <item>@drawable/font_6</item>
+        <item>@drawable/font_7</item>
+        <item>@drawable/font_8</item>
+        <item>@drawable/font_9</item>
+    </string-array>>
+</resources>

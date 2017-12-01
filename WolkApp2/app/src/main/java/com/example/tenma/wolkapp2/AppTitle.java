@@ -48,7 +48,6 @@ public class AppTitle extends ActivityAddToBGMandSE {
         soundPool.play(soundId, 1f, 1f, 0, 0, 1);    //音の大きさは0fから1fで調整できる
         //インテントの作成
         Intent intent = new Intent(AppTitle.this, AppMain.class);
-
         //遷移先の画面を起動
         startActivity(intent);
     }

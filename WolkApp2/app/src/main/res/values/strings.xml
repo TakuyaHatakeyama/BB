@@ -4,19 +4,27 @@
     <string name="app_name">WolkApp2</string>
 
     <string-array name="list">
-        <item>---</item>
+        <item>0</item>
         <item>120</item>
+        <item>125</item>
         <item>130</item>
+        <item>135</item>
         <item>140</item>
+        <item>145</item>
         <item>150</item>
         <item>160</item>
+        <item>165</item>
         <item>170</item>
+        <item>175</item>
         <item>180</item>
+        <item>185</item>
         <item>190</item>
+        <item>195</item>
         <item>200</item>
+
     </string-array>
     <string-array name="list2">
-        <item>---</item>
+        <item>0</item>
         <item>20</item>
         <item>30</item>
         <item>40</item>
