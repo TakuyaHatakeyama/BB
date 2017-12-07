@@ -24,6 +24,9 @@ public class AppLog extends ActivityAddToBGMandSE{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log);
+
+
+
     }
 
     @Override
@@ -37,11 +40,13 @@ public class AppLog extends ActivityAddToBGMandSE{
         soundPool = new SoundPool(50, AudioManager.STREAM_MUSIC, 0);
         soundId = soundPool.load(getApplicationContext(), R.raw.click2, 1);
 
-        TextView tv = (TextView) findViewById(R.id.SQL);
-
         calendarView = (CalendarView) findViewById(R.id.calendarView);
+
         dateDisplay = (TextView) findViewById(R.id.date_display);
         dateDisplay.setText("日付をタップしてください");
+
+
+
 
         // ～～～～～～～～～～～～～カレンダー～～～～～～～～～～～～～～～～～～～～～～～～～～
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -55,7 +60,7 @@ public class AppLog extends ActivityAddToBGMandSE{
                 SQLiteDatabase db = hkData.getReadableDatabase();
 
                 // タップされた年月日
-                int kakunoubanngou = (i*10000) + ((i1+1) *100 ) + i2;
+                int kakunoubanngou = (i*10000) + ((i1 + 1) * 100) + i2;
 
                 // SELECT（取得したい列） FROM（対象テーブル）WHERE（条件）※変数を使う場合「 + 変数」文字列結合
                 String sql = "SELECT hizuke , hosuu , karori FROM hosuukirokuTable WHERE hizuke=" + kakunoubanngou;
@@ -73,6 +78,7 @@ public class AppLog extends ActivityAddToBGMandSE{
                     String karoriVal = c.getString(c.getColumnIndex("karori"));
 
                     dateDisplay.setText((i1 + 1) + " 月 " + i2 + "日の歩数は" + hosuuVal + "歩です。\n\n" + "カロリーは" + karoriVal + "㌔カロリーです");
+                    Log.v("testt", String.valueOf(calendarView.getDate()));
 
                 } catch ( Exception e){
                     dateDisplay.setText((i1 + 1) + " 月 " + i2 + "日のデータがありません。");

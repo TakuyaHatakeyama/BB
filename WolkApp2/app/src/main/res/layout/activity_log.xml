@@ -18,7 +18,7 @@
         android:onClick="back"/>
     <TextView
         android:id="@+id/textView8"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="カレンダー"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -40,9 +40,10 @@
 
     <TextView
         android:id="@+id/date_display"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="カレンダー"
+        android:gravity="center"
+        android:text="日付をタップしてください"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
@@ -53,9 +54,4 @@
         android:textSize="10sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/SQL"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
 </LinearLayout>

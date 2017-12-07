@@ -10,17 +10,16 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-/**
- * Created by Tenma and Yuuma on 2017/11/20.
- */
-
 public class AppStatus extends ActivityAddToBGMandSE{
     int sintyouInt;
     int taizyuuInt;
+    String seibetuString;
     ArrayAdapter sintyouAdapter;
     ArrayAdapter taizyuuAdapter;
+    ArrayAdapter seibetuAdapter;
     private Spinner sintyouSpinner;
     private Spinner taizyuuSpinner;
+    private Spinner seibetuSpinner;
     private SoundPool soundPool;
     private int soundId;
     SharedPreferences data;
@@ -37,10 +36,12 @@ public class AppStatus extends ActivityAddToBGMandSE{
         // ArrayAdapterを生成。layoutにはspinner_item,中身はそれぞれlist,list2使用
         sintyouAdapter = ArrayAdapter.createFromResource(this, R.array.list, R.layout.spinner_item);
         taizyuuAdapter = ArrayAdapter.createFromResource(this, R.array.list2, R.layout.spinner_item);
+        seibetuAdapter = ArrayAdapter.createFromResource(this, R.array.list3, R.layout.spinner_item);
 
         // グラフィックに「spinner_dropdown_item」使用
         sintyouAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         taizyuuAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        seibetuAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
 
         //身長
         sintyouSpinner = (Spinner) findViewById(R.id.spinner);
@@ -49,6 +50,10 @@ public class AppStatus extends ActivityAddToBGMandSE{
         //体重
         taizyuuSpinner = (Spinner) findViewById(R.id.spinner2);
         taizyuuSpinner.setAdapter(taizyuuAdapter);
+
+        //性別
+        seibetuSpinner = (Spinner) findViewById(R.id.spinner3);
+        seibetuSpinner.setAdapter(seibetuAdapter);
 
         // 身長のドロップダウンリストから選んだ場合に、その値を保持。
         sintyouSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -76,6 +81,19 @@ public class AppStatus extends ActivityAddToBGMandSE{
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+
+        // 性別のドロップダウンリストから選んだ場合に、その値を保持。
+        seibetuSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView parent, View view, int position, long id) {
+                Spinner spinner3 = (Spinner) parent;
+                String item3 = (String) spinner3.getSelectedItem();
+                seibetuString = (item3);
+            }
+            @Override
+            public void onNothingSelected(AdapterView parent) {
+            }
+        });
     }
 
     @Override
@@ -92,6 +110,7 @@ public class AppStatus extends ActivityAddToBGMandSE{
         // SharedPreferencesよりデータを読み込む
         int sintyouInt =data.getInt("Sintyou", 0);
         int taizyuuInt = data.getInt("Taizyuu",0);
+        String seibetuString = data.getString("seibetu",null);
 
         // 身長のデータが存在する場合
         if( sintyouInt != 0) {
@@ -108,6 +127,14 @@ public class AppStatus extends ActivityAddToBGMandSE{
             int spinnerPosition2 = taizyuuAdapter.getPosition(String.valueOf(taizyuuInt));
             taizyuuSpinner.setSelection(spinnerPosition2);
         }
+
+        // 性別のデータが存在する場合
+        if( seibetuString != null ) {
+            seibetuSpinner = (Spinner) findViewById(R.id.spinner3);
+            seibetuAdapter = (ArrayAdapter) seibetuSpinner.getAdapter();
+            int spinnerPosition3 = seibetuAdapter.getPosition(String.valueOf(seibetuString));
+            seibetuSpinner.setSelection(spinnerPosition3);
+        }
     }
 
     @Override
@@ -116,6 +143,7 @@ public class AppStatus extends ActivityAddToBGMandSE{
         // putInt("キー値" , value )
         editor.putInt("Sintyou",sintyouInt);
         editor.putInt("Taizyuu",taizyuuInt);
+        editor.putString("seibetu",seibetuString);
         editor.commit();
         bgmPause();
     }
@@ -127,6 +155,7 @@ public class AppStatus extends ActivityAddToBGMandSE{
         // putInt("キー値" , value )
         editor.putInt("Sintyou",sintyouInt);
         editor.putInt("Taizyuu",taizyuuInt);
+        editor.putString("seibetu",seibetuString);
         editor.commit();
 
         //インテントの作成
