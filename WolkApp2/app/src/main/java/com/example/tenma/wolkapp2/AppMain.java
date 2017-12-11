@@ -61,6 +61,9 @@ public class AppMain extends AppCompatActivity implements View.OnClickListener{
         //遷移先の画面を起動
         startActivity(intent);
 
+        //データの記録
+        setStepsData();
+
         //Activityの終了
         finishAndRemoveTask();
     }
@@ -70,6 +73,10 @@ public class AppMain extends AppCompatActivity implements View.OnClickListener{
     private TextView mStepCounterText;
     private SensorManager mSensorManager;
     private Sensor mStepCounterSensor;
+
+    //gif
+    ImageView imageView;
+    GlideDrawableImageViewTarget target;
 
     //前回の不必要歩数
     float beforedust;
@@ -149,6 +156,8 @@ public class AppMain extends AppCompatActivity implements View.OnClickListener{
         //歩数のフォント変える
         TextView text1 = (TextView)findViewById(R.id.pedometer);
         text1.setTypeface(Typeface.createFromAsset(getAssets(), "chibit.ttf"));
+        TextView text2 = (TextView)findViewById(R.id.walk);
+        text2.setTypeface(Typeface.createFromAsset(getAssets(), "GD-DOTFONT-DQ-TTF_008.ttf"));
 
         //メイン画面で表示するカロリーのフォントの色と透明度
         TextView tv = (TextView) findViewById(R.id.textView);
@@ -187,15 +196,15 @@ public class AppMain extends AppCompatActivity implements View.OnClickListener{
 
         //キャラクターの初期表示（歩いているか止まっているか）
         //止まっている状態（デフォルト）
-        ImageView imageView = (ImageView) findViewById(R.id.gifView);
-        GlideDrawableImageViewTarget target = new GlideDrawableImageViewTarget(imageView);
-        Glide.with(this).load(R.raw.main_stop2).into(target);
+        imageView = (ImageView) findViewById(R.id.gifView);
+        //target = new GlideDrawableImageViewTarget(imageView);
+        Glide.with(this).load(R.raw.main_gif_stop2).into(imageView);
         //歩いている状態
         if(pref.getBoolean("beforestartbutton", false)) {
 
             imageView = (ImageView) findViewById(R.id.gifView);
-            target = new GlideDrawableImageViewTarget(imageView);
-            Glide.with(this).load(R.raw.main_back3).into(target);
+            //target = new GlideDrawableImageViewTarget(imageView);
+            Glide.with(this).load(R.raw.main_gif_walk).into(imageView);
         }
 
     }
@@ -302,6 +311,9 @@ public class AppMain extends AppCompatActivity implements View.OnClickListener{
 
             onstopflag = true;
         }
+
+        //データの記録
+        setStepsData();
     }
 
 //    //呼び出されないことがあるので使用しない
@@ -456,9 +468,11 @@ public class AppMain extends AppCompatActivity implements View.OnClickListener{
                     teststart.setImageResource(R.drawable.start2);
                     teststart = (ImageButton) findViewById(R.id.IBstop);
                     teststart.setImageResource(R.drawable.stop1);
-                    ImageView imageView = (ImageView) findViewById(R.id.gifView);
-                    GlideDrawableImageViewTarget target = new GlideDrawableImageViewTarget(imageView);
-                    Glide.with(this).load(R.raw.main_back3).into(target);
+
+                    //gif
+                    imageView = (ImageView) findViewById(R.id.gifView);
+                    //target = new GlideDrawableImageViewTarget(imageView);
+                    Glide.with(this).load(R.raw.main_gif_walk).into(imageView);
 
                     Log.v("testt", "-----スタートボタンが押されました-----");
                     Log.v("testt", "いらない歩数[dust(変化前)]" + dust);
@@ -485,9 +499,6 @@ public class AppMain extends AppCompatActivity implements View.OnClickListener{
             //ストップボタン
             case R.id.IBstop:
 
-                boolean isDataDual = false;
-                String sql = "";
-
                 if(startflag) {
                     //ボタンの音
                     soundPool.play(soundId, 1f, 1f, 0, 0, 1);    //音の大きさは0fから1fで調整できる
@@ -498,9 +509,11 @@ public class AppMain extends AppCompatActivity implements View.OnClickListener{
                     teststart.setImageResource(R.drawable.start1);
                     teststart = (ImageButton) findViewById(R.id.IBstop);
                     teststart.setImageResource(R.drawable.stop2);
-                    ImageView imageView = (ImageView) findViewById(R.id.gifView);
-                    GlideDrawableImageViewTarget target = new GlideDrawableImageViewTarget(imageView);
-                    Glide.with(this).load(R.raw.main_stop2).into(target);
+
+                    //gif
+                    imageView = (ImageView) findViewById(R.id.gifView);
+                    //target = new GlideDrawableImageViewTarget(imageView);
+                    Glide.with(this).load(R.raw.main_gif_stop2).into(imageView);
 
                     //歩数計算
                     stopfirst = se.values[0];
@@ -509,67 +522,72 @@ public class AppMain extends AppCompatActivity implements View.OnClickListener{
                     startflag = false;
                     stopflag = true;
 
-
-
-
-                    HosuukirokuTest hkData = new HosuukirokuTest( getApplicationContext() );
-                    SQLiteDatabase db = hkData.getReadableDatabase();
-
-                    // 設定画面で決めたPreferencesのファイル「STATUS」より、身長と体重の読み込み
-                    data = getSharedPreferences("STATUS",MODE_PRIVATE);
-                    // PreferencesのdataEditorが操作できるようにする
-                    dateEditor = data.edit();
-
-                    // データ呼び出し。STATUSファイルのSintyouとTaizyuuをキーにして、値を取り出す
-                    int sintyouInt = data.getInt("Sintyou", 0);
-                    int taizyuuInt = data.getInt("Taizyuu", 0);
-
-                    // int型にキャスト
-                    final int hosuu = (int)steps;
-
-                    // カロリー計算
-                    int hohaba = sintyouInt - 100 ;
-                    double kyori = hohaba * hosuu / 100000.0 * 100;
-                    kyori = Math.round( kyori );
-                    double kekka = kyori / 100;
-                    double calorie =  kekka * taizyuuInt;
-
-                    // SQLに、その日の日付と歩数とカロリーを追加
-                    Calendar cal = Calendar.getInstance();
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-                    String strDate = sdf.format(cal.getTime());
-                    int intDate = Integer.parseInt(strDate);
-
-                    // Exceptionを吐くかで、データの有無をチェック(あまり推奨されないやり方。機能実現優先。誰か変えて)
-                    try {
-                        String dateDualChk = "SELECT hizuke FROM hosuukirokuTable WHERE hizuke=" + intDate;
-
-                        // 今日の日付のデータが無ければ、Exceptionを出力してcatchに飛ぶ
-                        c = db.rawQuery(dateDualChk, null);
-                        c.moveToFirst();
-
-                        String hizukeVal = c.getString(c.getColumnIndex("hizuke"));
-
-                        if( hizukeVal.equals( String.valueOf( intDate ) )) {
-                            sql = "UPDATE hosuukirokuTable SET hosuu = " + hosuu + " , karori = " + calorie + " WHERE hizuke=" + intDate;
-
-                            c = db.rawQuery(sql, null);
-                            c.moveToFirst();
-                        }
-                    } catch ( Exception e){
-                        sql = "INSERT INTO hosuukirokuTable( hizuke , hosuu , karori )values(" + intDate + " ," + hosuu + "," + calorie +")";
-
-                        c = db.rawQuery(sql, null);
-                        c.moveToFirst();
-                    }
-                    finally {
-                        // クローズ処理
-                        c.close();
-                        db.close();
-                    }
                 }
                 break;
 
+        }
+    }
+
+    public void setStepsData() {
+
+        Log.v("testt", "SQLにデータを格納します。");
+
+        String sql = "";
+
+        HosuukirokuTest hkData = new HosuukirokuTest( getApplicationContext() );
+        SQLiteDatabase db = hkData.getReadableDatabase();
+
+        // 設定画面で決めたPreferencesのファイル「STATUS」より、身長と体重の読み込み
+        data = getSharedPreferences("STATUS",MODE_PRIVATE);
+        // PreferencesのdataEditorが操作できるようにする
+        dateEditor = data.edit();
+
+        // データ呼び出し。STATUSファイルのSintyouとTaizyuuをキーにして、値を取り出す
+        int sintyouInt = data.getInt("Sintyou", 0);
+        int taizyuuInt = data.getInt("Taizyuu", 0);
+
+        // int型にキャスト
+        final int hosuu = (int)steps;
+
+        // カロリー計算
+        int hohaba = sintyouInt - 100 ;
+        double kyori = hohaba * hosuu / 100000.0 * 100;
+        kyori = Math.round( kyori );
+        double kekka = kyori / 100;
+        double calorie =  kekka * taizyuuInt;
+
+        // SQLに、その日の日付と歩数とカロリーを追加
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        String strDate = sdf.format(cal.getTime());
+        int intDate = Integer.parseInt(strDate);
+
+        // Exceptionを吐くかで、データの有無をチェック(あまり推奨されないやり方。機能実現優先。誰か変えて)
+        try {
+            String dateDualChk = "SELECT hizuke FROM hosuukirokuTable WHERE hizuke=" + intDate;
+
+            // 今日の日付のデータが無ければ、Exceptionを出力してcatchに飛ぶ
+            c = db.rawQuery(dateDualChk, null);
+            c.moveToFirst();
+
+            String hizukeVal = c.getString(c.getColumnIndex("hizuke"));
+
+            if( hizukeVal.equals( String.valueOf( intDate ) )) {
+                sql = "UPDATE hosuukirokuTable SET hosuu = " + hosuu + " , karori = " + calorie + " WHERE hizuke=" + intDate;
+
+                c = db.rawQuery(sql, null);
+                c.moveToFirst();
+            }
+        } catch ( Exception e){
+            sql = "INSERT INTO hosuukirokuTable( hizuke , hosuu , karori )values(" + intDate + " ," + hosuu + "," + calorie +")";
+
+            c = db.rawQuery(sql, null);
+            c.moveToFirst();
+        }
+        finally {
+            // クローズ処理
+            c.close();
+            db.close();
         }
     }
 

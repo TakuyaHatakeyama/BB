@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#00ffff">
+    android:layout_height="match_parent">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -16,13 +15,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitXY"
-            app:srcCompat="@drawable/back_title1" />
+            app:srcCompat="@drawable/title_back" />
 
         <ImageView
             android:id="@+id/imageView20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/maou_title" />
+            app:srcCompat="@drawable/title_maou" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -35,7 +34,7 @@
                 android:id="@+id/imageButton2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/button_title1"
+                app:srcCompat="@drawable/title_button1"
                 android:layout_gravity="center"
                 android:onClick="button1"
                 android:background="@null"/>
@@ -44,7 +43,7 @@
                 android:id="@+id/imageButton3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/button_title2"
+                app:srcCompat="@drawable/title_button2"
                 android:onClick="button2"
                 android:background="@null"/>
 
@@ -52,7 +51,7 @@
                 android:id="@+id/imageButton5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/button_title3"
+                app:srcCompat="@drawable/title_button3"
                 android:onClick="button3"
                 android:background="@null"/>
 

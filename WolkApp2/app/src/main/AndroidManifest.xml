@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/aikon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:launchMode="singleTask">
+        android:launchMode="singleTask"
+        android:largeHeap="true">
 
         <activity
             android:screenOrientation="portrait"
@@ -27,6 +28,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.ACTION_SHUTDOWN"/>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.DATE_CHANGED"/>
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>

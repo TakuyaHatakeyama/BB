@@ -65,7 +65,7 @@ public class AppLog extends ActivityAddToBGMandSE{
                 // SELECT（取得したい列） FROM（対象テーブル）WHERE（条件）※変数を使う場合「 + 変数」文字列結合
                 String sql = "SELECT hizuke , hosuu , karori FROM hosuukirokuTable WHERE hizuke=" + kakunoubanngou;
 
-                Log.v("日付；",String.valueOf( kakunoubanngou ) );
+                Log.v("testt","日付:" + String.valueOf( kakunoubanngou ) );
 
                 // SQL文を実行してデータを取得
                 try {
@@ -78,7 +78,6 @@ public class AppLog extends ActivityAddToBGMandSE{
                     String karoriVal = c.getString(c.getColumnIndex("karori"));
 
                     dateDisplay.setText((i1 + 1) + " 月 " + i2 + "日の歩数は" + hosuuVal + "歩です。\n\n" + "カロリーは" + karoriVal + "㌔カロリーです");
-                    Log.v("testt", String.valueOf(calendarView.getDate()));
 
                 } catch ( Exception e){
                     dateDisplay.setText((i1 + 1) + " 月 " + i2 + "日のデータがありません。");
