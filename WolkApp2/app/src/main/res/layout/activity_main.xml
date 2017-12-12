@@ -28,12 +28,11 @@
 
             <ImageButton
                 android:id="@+id/imageButton"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="248dp"
                 android:background="@null"
                 android:onClick="back"
-                app:srcCompat="@drawable/back" />
+                app:srcCompat="@drawable/button_modoru" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -41,21 +40,21 @@
 
                 <ImageView
                     android:id="@+id/imageView8"
-                    android:layout_width="250dp"
-                    android:layout_height="350dp"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
                     android:gravity="left"
-                    android:layout_marginTop="10dp"
-                    app:srcCompat="@drawable/main_kanban" />
+                    android:layout_marginTop="91dp"
+                    app:srcCompat="@drawable/main_kanban2" />
 
                 <TextView
                     android:id="@+id/textView"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
-                    android:layout_marginLeft="62dp"
+                    android:layout_marginLeft="50dp"
                     android:layout_marginTop="138dp"
                     android:text="TextView"
-                    android:textSize="30dp" />
+                    android:textSize="20dp" />
 
                 <ImageButton
                     android:id="@+id/imageButton4"
@@ -69,42 +68,54 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/main_walkpoint"
+                        android:layout_gravity="center"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:id="@+id/pedometer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="0.4"
+                            android:gravity="right"
+                            android:text="0"
+                            android:textSize="40sp" />
+
+                        <TextView
+                            android:id="@+id/walk"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="0.6"
+                            android:gravity="center"
+                            android:text="ほ"
+                            android:textSize="50dp" />
+                    </LinearLayout>
+
+                </FrameLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:orientation="horizontal">
-
-
-                    <TextView
-                        android:id="@+id/pedometer"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="0.4"
-                        android:gravity="right"
-                        android:text="0"
-                        android:textSize="40sp" />
-
-                    <TextView
-                        android:id="@+id/walk"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="0.6"
-                        android:gravity="center"
-                        android:text="ほ"
-                        android:textSize="50dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="20dp"
                     android:layout_weight="0.64"
                     android:orientation="horizontal">
 
@@ -115,7 +126,7 @@
                         android:layout_weight="1"
                         android:background="@null"
                         android:onClick="back5"
-                        app:srcCompat="@drawable/stop2" />
+                        app:srcCompat="@drawable/main_kanban" />
 
                     <ImageButton
                         android:id="@+id/IBstart"
@@ -124,7 +135,7 @@
                         android:layout_weight="1"
                         android:background="@null"
                         android:onClick="back4"
-                        app:srcCompat="@drawable/start1" />
+                        app:srcCompat="@drawable/main_start" />
                 </LinearLayout>
 
             </LinearLayout>

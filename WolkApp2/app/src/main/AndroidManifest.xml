@@ -38,6 +38,8 @@
         <activity android:name=".AppMain"></activity>
         <activity android:name=".AppLog"></activity>
 
+        <service android:name=".NotificationService" />
+
     </application>
 
 </manifest>

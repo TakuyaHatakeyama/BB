@@ -6,13 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.tenma.wolkapp2.AppLog"
-    android:background="#00ffff">
+    android:background="@drawable/title_back">
 
     <ImageButton
         android:id="@+id/imageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/back"
+        app:srcCompat="@drawable/button_modoru"
         android:background="@null"
         android:layout_gravity="left"
         android:onClick="back"/>
