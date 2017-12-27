@@ -43,7 +43,8 @@ public class AppLog extends ActivityAddToBGMandSE{
         calendarView = (CalendarView) findViewById(R.id.calendarView);
 
         dateDisplay = (TextView) findViewById(R.id.date_display);
-        dateDisplay.setText("日付をタップしてください");
+        dateDisplay.setText("\n\n日付をタップしてください\n");
+        dateDisplay.setTextSize(20.0f);
 
 
 
@@ -77,10 +78,12 @@ public class AppLog extends ActivityAddToBGMandSE{
                     String hosuuVal = c.getString(c.getColumnIndex("hosuu"));
                     String karoriVal = c.getString(c.getColumnIndex("karori"));
 
-                    dateDisplay.setText((i1 + 1) + " 月 " + i2 + "日の歩数は" + hosuuVal + "歩です。\n\n" + "カロリーは" + karoriVal + "㌔カロリーです");
+                    dateDisplay.setText((i1 + 1) + " 月 " + i2 + "日の歩数は" + hosuuVal + "歩です。\n\n\n\n" + "カロリーは" + karoriVal + "㌔カロリーです");
+                    dateDisplay.setTextSize(16.0f);
 
                 } catch ( Exception e){
-                    dateDisplay.setText((i1 + 1) + " 月 " + i2 + "日のデータがありません。");
+                    dateDisplay.setText("\n\n"+(i1 + 1) + " 月 " + i2 + "日のデータがありません。\n\n");
+                    dateDisplay.setTextSize(16.0f);
                 } finally {
                     // クローズ処理
                     c.close();

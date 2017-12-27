@@ -20,8 +20,8 @@ import java.util.Locale;
 
 public class NotificationService extends Service {
 
-    float steps;
-    SensorEvent se;
+    private float steps;
+    private SensorEvent se;
     private SensorManager mSensorManager;
     private Sensor mStepCounterSensor;
 
@@ -39,6 +39,7 @@ public class NotificationService extends Service {
         setStepCounterListener();
 
         return super.onStartCommand(intent, flags, startId);
+//        return START_STICKY;
     }
 
     public void onDestroy() {
@@ -71,9 +72,13 @@ public class NotificationService extends Service {
         public void onSensorChanged(SensorEvent sensorEvent) {
 
             se = sensorEvent;
-            SharedPreferences pref = getSharedPreferences("file", MODE_PRIVATE);
 
-            Log.v("testt", "[センサ(通知)]：" + se.values[0]);
+            SharedPreferences pref = getSharedPreferences("file", MODE_PRIVATE);
+            SharedPreferences.Editor editor = pref.edit();
+            editor.putFloat("runningSensor", se.values[0]);
+            editor.apply();
+
+            Log.v("testt", "[(通知)センサ]：" + se.values[0]);
 
             //スタートボタンが押されている時
             if(pref.getBoolean("runningstartflag", false)) {
@@ -82,9 +87,16 @@ public class NotificationService extends Service {
                 //wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
                 pref = getSharedPreferences("file", MODE_PRIVATE);
                 steps = se.values[0] - pref.getFloat("runningdust", -1);
+
+                Log.v("testt", "[(通知)runningdust]：" + pref.getFloat("runningdust", -1));
+
                 //wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
 
+                //スタートを押してる際の通知（常駐）
                 sendNotification();
+
+                //データの記録
+                SetData sd = new SetData(getApplicationContext(), steps);
 
             }
             //ストップボタンが押されている時
@@ -93,8 +105,6 @@ public class NotificationService extends Service {
                 //歩数表示は変化させず維持する（ストップが押される直前の歩数を表示し続けるだけ）
 
             }
-
-            Log.v("testt", "[startflag(通知)]：" + pref.getBoolean("runningstartflag", false));
 
         }
 
@@ -107,22 +117,20 @@ public class NotificationService extends Service {
 
     private void sendNotification() {
 
-        Log.v("testt", "+++++sendNotification()+++++");
-
-        Intent notificationIntent = new Intent(this, AppMain.class);
+        Intent notificationIntent = new Intent(this, AppTitle.class);
         PendingIntent contentIntent = PendingIntent.getActivity(this,0,notificationIntent,0);
 
         Notification.Builder builder = new Notification.Builder(this);
 
         NotificationManager manager= (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
 
-        builder.setSmallIcon(R.mipmap.aikon);
-        builder.setContentTitle("ちんこ！");
+        builder.setSmallIcon(R.mipmap.icon);
 
+        builder.setContentTitle("ほすうをけいそくちゅう");
         builder.setContentText("きょうのほすう　→　" + (int)steps);
+
         builder.setDefaults(Notification.PRIORITY_DEFAULT);
         builder.setContentIntent(contentIntent);
-//        manager.flags = Notification.FLAG_ONGOING_EVENT; // 常駐
 
         manager.notify(1,builder.build());
 

@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.tenma.wolkapp2.AppLog"
-    android:background="@drawable/title_back">
+    android:background="@drawable/title_back"
+    android:weightSum="1">
 
     <ImageButton
         android:id="@+id/imageButton"
@@ -16,24 +17,10 @@
         android:background="@null"
         android:layout_gravity="left"
         android:onClick="back"/>
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="カレンダー"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        tools:ignore="HardcodedText" />
 
     <!--<RelativeLayout-->
     <!--android:layout_width="wrap_content"-->
     <!--android:layout_height="wrap_content">-->
-
-    <CalendarView
-        android:id="@+id/calendarView"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginTop="16dp" />
 
 
     <!--</RelativeLayout>-->
@@ -53,5 +40,11 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textSize="10sp"
         android:textStyle="bold" />
+
+    <CalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="match_parent"
+        android:layout_height="372dp"
+        android:layout_marginBottom="16dp" />
 
 </LinearLayout>

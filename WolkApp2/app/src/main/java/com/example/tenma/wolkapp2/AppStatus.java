@@ -2,6 +2,7 @@ package com.example.tenma.wolkapp2;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 public class AppStatus extends ActivityAddToBGMandSE{
     int sintyouInt;
@@ -27,6 +29,12 @@ public class AppStatus extends ActivityAddToBGMandSE{
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        /*歩数のフォント変える
+        TextView text1 = (TextView)findViewById(R.id.seibetu);
+        text1.setTypeface(Typeface.createFromAsset(getAssets(), "GD-DOTFONT-DQ-TTF_008.ttf"));
+        */
+
 
         setContentView(R.layout.activity_status);
         //保存
@@ -146,6 +154,8 @@ public class AppStatus extends ActivityAddToBGMandSE{
         editor.putString("seibetu",seibetuString);
         editor.commit();
         bgmPause();
+
+
     }
 
     public void back(View view) {

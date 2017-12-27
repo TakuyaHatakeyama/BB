@@ -26,40 +26,62 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/imageButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:onClick="back"
-                app:srcCompat="@drawable/button_modoru" />
-
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/imageView8"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:gravity="left"
-                    android:layout_marginTop="91dp"
-                    app:srcCompat="@drawable/main_kanban2" />
-
-                <TextView
-                    android:id="@+id/textView"
+                <ImageButton
+                    android:id="@+id/imageButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:layout_marginLeft="50dp"
-                    android:layout_marginTop="138dp"
-                    android:text="TextView"
-                    android:textSize="20dp" />
+                    android:background="@null"
+                    android:onClick="back"
+                    app:srcCompat="@drawable/button_modoru" />
+
+                <ImageView
+                    android:id="@+id/hukidasi"
+                    android:layout_width="250dp"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_gravity="right"
+                    app:srcCompat="@drawable/hukidasi" />
+
+                <TextView
+                    android:id="@+id/syouhi"
+                    android:layout_width="220dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginRight="20dp"
+                    android:text="しょうひかろりーは"
+                    android:textSize="40dp"/>
+
+                <TextView
+                    android:id="@+id/value"
+                    android:layout_width="120dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="88dp"
+                    android:layout_marginRight="120dp"
+                    android:text="value"
+                    android:textSize="25dp"/>
+
+                <TextView
+                    android:id="@+id/end"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="65dp"
+                    android:layout_marginRight="20dp"
+                    android:text="end"
+                    android:textSize="40dp"/>
 
                 <ImageButton
-                    android:id="@+id/imageButton4"
+                    android:id="@+id/character"
                     android:layout_width="wrap_content"
                     android:layout_height="350dp"
+                    android:layout_marginTop="70dp"
                     android:background="@null"
                     android:onClick="serif"
                     app:srcCompat="@drawable/main_button" />
@@ -92,9 +114,8 @@
                         <TextView
                             android:id="@+id/pedometer"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_weight="0.4"
+                            android:layout_height="40dp"
+                            android:layout_weight="35"
                             android:gravity="right"
                             android:text="0"
                             android:textSize="40sp" />
@@ -103,11 +124,12 @@
                             android:id="@+id/walk"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_weight="0.6"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_weight="65"
                             android:gravity="center"
                             android:text="ほ"
-                            android:textSize="50dp" />
+                            android:textSize="60dp" />
                     </LinearLayout>
 
                 </FrameLayout>
