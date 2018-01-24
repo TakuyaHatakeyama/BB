@@ -661,7 +661,15 @@ public class AppMain extends AppCompatActivity implements View.OnClickListener{
                 TextView end = (TextView) findViewById(R.id.end);
                 end.setText("だじょ～");
 
-            } finally {
+            } catch ( Exception e) {
+                //非表示
+                findViewById(R.id.hukidasi).setVisibility(View.INVISIBLE);
+                findViewById(R.id.value).setVisibility(View.INVISIBLE);
+                findViewById(R.id.syouhi).setVisibility(View.INVISIBLE);
+                findViewById(R.id.end).setVisibility(View.INVISIBLE);
+                nowMessageDisp = false;
+
+            }finally {
                 // クローズ処理
                 c.close();
                 db.close();

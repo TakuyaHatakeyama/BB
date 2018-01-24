@@ -19,8 +19,6 @@ public class SetData extends AppCompatActivity {
 
     public SetData(Context context, float steps) {
 
-        Log.v("testt", "SQLにデータを格納します。");
-
         String sql = "";
 
         HosuukirokuTest hkData = new HosuukirokuTest( context );
@@ -56,7 +54,7 @@ public class SetData extends AppCompatActivity {
         String strDate = sdf.format(cal.getTime());
         int intDate = Integer.parseInt(strDate);
 
-        Log.v("testt", "データを保存した日付：" + String.valueOf(intDate));
+        //Log.v("testt", "データを保存した日付：" + String.valueOf(intDate));
 
         // Exceptionを吐くかで、データの有無をチェック(あまり推奨されないやり方。機能実現優先。誰か変えて)
         try {
