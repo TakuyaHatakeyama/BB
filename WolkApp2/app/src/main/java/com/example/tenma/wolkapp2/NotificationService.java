@@ -85,11 +85,8 @@ public class NotificationService extends Service {
 
                 //歩数表示を増加させる
                 //wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
-                pref = getSharedPreferences("file", MODE_PRIVATE);
                 steps = se.values[0] - pref.getFloat("runningdust", -1);
-
                 Log.v("testt", "[(通知)runningdust]：" + pref.getFloat("runningdust", -1));
-
                 //wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
 
                 //スタートを押してる際の通知（常駐）

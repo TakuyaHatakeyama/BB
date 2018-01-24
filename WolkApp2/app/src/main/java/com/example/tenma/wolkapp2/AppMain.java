@@ -443,7 +443,7 @@ public class AppMain extends AppCompatActivity implements View.OnClickListener{
 
                 //歩数表示を増加させる
                 //wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
-                steps = se.values[0] - dust;
+                steps = se.values[0] - pref.getFloat("runningdust", -1);
                 mStepCounterText.setText(String.format(Locale.US, "%d", (int)steps));
                 //wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
 
@@ -453,8 +453,8 @@ public class AppMain extends AppCompatActivity implements View.OnClickListener{
                 editor.putFloat("runningdust", dust);
                 editor.apply();
 
-//                //データの記録
-//                SetData sd = new SetData(getApplicationContext(), steps);
+                //データの記録
+                SetData sd = new SetData(getApplicationContext(), steps);
             }
             //ストップボタンが押されている時
             else if(stopflag) {
